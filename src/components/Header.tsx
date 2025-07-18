@@ -1,9 +1,13 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Sparkles } from "lucide-react";
+import { Menu, X, Sparkles, LogOut } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
@@ -37,12 +41,26 @@ export const Header = () => {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-3">
-            <Button variant="ghost" onClick={() => alert('Login functionality coming soon!')}>
-              Login
-            </Button>
-            <Button variant="hero" onClick={() => alert('Start Building functionality coming soon!')}>
-              Start Building
-            </Button>
+            {user ? (
+              <>
+                <Button variant="ghost" onClick={() => navigate('/builder')}>
+                  Dashboard
+                </Button>
+                <Button variant="outline" onClick={signOut}>
+                  <LogOut className="w-4 h-4 mr-2" />
+                  Sign Out
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button variant="ghost" onClick={() => navigate('/auth')}>
+                  Login
+                </Button>
+                <Button variant="hero" onClick={() => navigate('/auth')}>
+                  Start Building
+                </Button>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -71,12 +89,26 @@ export const Header = () => {
                 About
               </a>
               <div className="flex flex-col gap-2 mt-4">
-                <Button variant="ghost" className="justify-start" onClick={() => alert('Login functionality coming soon!')}>
-                  Login
-                </Button>
-                <Button variant="hero" className="justify-start" onClick={() => alert('Start Building functionality coming soon!')}>
-                  Start Building
-                </Button>
+                {user ? (
+                  <>
+                    <Button variant="ghost" className="justify-start" onClick={() => navigate('/builder')}>
+                      Dashboard
+                    </Button>
+                    <Button variant="outline" className="justify-start" onClick={signOut}>
+                      <LogOut className="w-4 h-4 mr-2" />
+                      Sign Out
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <Button variant="ghost" className="justify-start" onClick={() => navigate('/auth')}>
+                      Login
+                    </Button>
+                    <Button variant="hero" className="justify-start" onClick={() => navigate('/auth')}>
+                      Start Building
+                    </Button>
+                  </>
+                )}
               </div>
             </nav>
           </div>

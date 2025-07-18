@@ -1,6 +1,9 @@
+import { useState } from 'react';
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Eye, Heart } from "lucide-react";
+import { TemplatePreviewModal } from './TemplatePreviewModal';
+import { useNavigate } from 'react-router-dom';
 
 const templates = [
   {
@@ -62,6 +65,18 @@ const templates = [
 const categories = ["All", "Business", "E-commerce", "Portfolio", "Food & Dining", "Technology", "Healthcare"];
 
 export const TemplatesSection = () => {
+  const [selectedTemplate, setSelectedTemplate] = useState<typeof templates[0] | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handlePreview = (template: typeof templates[0]) => {
+    setSelectedTemplate(template);
+    setIsModalOpen(true);
+  };
+
+  const handleUseTemplate = (template: typeof templates[0]) => {
+    navigate(`/builder?template=${template.id}`);
+  };
   return (
     <section id="templates" className="py-20">
       <div className="container mx-auto px-4">
@@ -111,11 +126,11 @@ export const TemplatesSection = () => {
                 
                 {/* Overlay Buttons */}
                 <div className="absolute inset-0 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <Button size="sm" variant="secondary" className="rounded-full" onClick={() => alert(`Previewing ${template.title} template...`)}>
+                  <Button size="sm" variant="secondary" className="rounded-full" onClick={() => handlePreview(template)}>
                     <Eye className="w-4 h-4 mr-1" />
                     Preview
                   </Button>
-                  <Button size="sm" variant="ai" className="rounded-full" onClick={() => alert(`Using ${template.title} template to start building...`)}>
+                  <Button size="sm" variant="ai" className="rounded-full" onClick={() => handleUseTemplate(template)}>
                     Use Template
                   </Button>
                 </div>
@@ -159,6 +174,13 @@ export const TemplatesSection = () => {
           </Button>
         </div>
       </div>
+
+      {/* Template Preview Modal */}
+      <TemplatePreviewModal
+        template={selectedTemplate}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </section>
   );
 };
