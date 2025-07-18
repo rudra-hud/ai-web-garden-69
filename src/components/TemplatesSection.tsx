@@ -111,11 +111,11 @@ export const TemplatesSection = () => {
                 
                 {/* Overlay Buttons */}
                 <div className="absolute inset-0 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <Button size="sm" variant="secondary" className="rounded-full">
+                  <Button size="sm" variant="secondary" className="rounded-full" onClick={() => alert(`Previewing ${template.title} template...`)}>
                     <Eye className="w-4 h-4 mr-1" />
                     Preview
                   </Button>
-                  <Button size="sm" variant="ai" className="rounded-full">
+                  <Button size="sm" variant="ai" className="rounded-full" onClick={() => alert(`Using ${template.title} template to start building...`)}>
                     Use Template
                   </Button>
                 </div>

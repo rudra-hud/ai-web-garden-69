@@ -37,10 +37,10 @@ export const Header = () => {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-3">
-            <Button variant="ghost">
+            <Button variant="ghost" onClick={() => alert('Login functionality coming soon!')}>
               Login
             </Button>
-            <Button variant="hero">
+            <Button variant="hero" onClick={() => alert('Start Building functionality coming soon!')}>
               Start Building
             </Button>
           </div>
@@ -71,10 +71,10 @@ export const Header = () => {
                 About
               </a>
               <div className="flex flex-col gap-2 mt-4">
-                <Button variant="ghost" className="justify-start">
+                <Button variant="ghost" className="justify-start" onClick={() => alert('Login functionality coming soon!')}>
                   Login
                 </Button>
-                <Button variant="hero" className="justify-start">
+                <Button variant="hero" className="justify-start" onClick={() => alert('Start Building functionality coming soon!')}>
                   Start Building
                 </Button>
               </div>
